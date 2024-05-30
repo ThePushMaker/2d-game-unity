@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public float moveSpeed;
-    public float jumpForce;
+    private Rigidbody2D rb;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpForce;
     private float xInput;
     
     // Start is called before the first frame update
     void Start()
     {
-        // 
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
