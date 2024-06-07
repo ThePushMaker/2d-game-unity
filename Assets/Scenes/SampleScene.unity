@@ -372,7 +372,7 @@ Rigidbody2D:
   m_LinearDrag: 0.5
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 31cdb4b96fa386d4d85819e48e665189, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -397,6 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 15
   jumpForce: 8
+  isMoving: 0
 --- !u!70 &625069858
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
