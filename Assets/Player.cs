@@ -9,7 +9,6 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     
-    [SerializeField] private bool isMoving;
     private float xInput;
     
     // Start is called before the first frame update
@@ -22,13 +21,37 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Movement();
+        
+        CheckInput();
+        
+        AnimatorControllers();
+    }
+    
+    
+    private void CheckInput()
+    {
         xInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            Jump();
         }
+    }
+    
+    private void Movement()
+    {
+        rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+    }
+    
+    private void Jump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+    }
+    
+    private void AnimatorControllers()
+    {
+        bool isMoving;
         
         isMoving = rb.velocity.x != 0;
         
