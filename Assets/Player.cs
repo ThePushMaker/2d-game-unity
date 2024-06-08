@@ -11,6 +11,10 @@ public class NewBehaviourScript : MonoBehaviour
     
     private float xInput;
     
+    // default facing direction is right
+    private int facingDirection = 1;
+    private bool facingRight = true;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +28,8 @@ public class NewBehaviourScript : MonoBehaviour
         Movement();
         
         CheckInput();
+        
+        FlipController();
         
         AnimatorControllers();
     }
@@ -56,5 +62,18 @@ public class NewBehaviourScript : MonoBehaviour
         isMoving = rb.velocity.x != 0;
         
         anim.SetBool("isMoving", isMoving);
+    }
+    
+    private void Flip()
+    {
+        facingDirection = facingDirection * -1;
+        facingRight = !facingRight;
+        transform.Rotate(0, 180, 0);
+    }
+    
+    private void FlipController()
+    {
+        if(rb.velocity.x > 0 && !facingRight || rb.velocity.x < 0 && facingRight)
+            Flip();
     }
 }
