@@ -71,6 +71,7 @@ public class NewBehaviourScript : MonoBehaviour
         isMoving = rb.velocity.x != 0;
         
         anim.SetBool("isMoving", isMoving);
+        anim.SetBool("isGrounded", isGrounded);
     }
     
     private void Flip()
