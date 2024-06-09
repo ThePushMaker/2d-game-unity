@@ -19,6 +19,8 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField] private float groundCheckDistance = 1.4f;
     [SerializeField] private LayerMask whatIsGround;
     private bool isGrounded;
+    private bool isMoving;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -66,9 +68,9 @@ public class NewBehaviourScript : MonoBehaviour
     
     private void AnimatorControllers()
     {
-        bool isMoving;
-        
         isMoving = rb.velocity.x != 0;
+        
+        anim.SetFloat("yVelocity", rb.velocity.y);
         
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isGrounded", isGrounded);
