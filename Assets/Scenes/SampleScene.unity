@@ -397,7 +397,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 15
   jumpForce: 8
-  isMoving: 0
+  groundCheckDistance: 1.4
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!70 &625069858
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -444,8 +447,8 @@ GameObject:
   - component: {fileID: 1247357490}
   - component: {fileID: 1247357489}
   - component: {fileID: 1247357488}
-  m_Layer: 0
-  m_Name: Platform (3)
+  m_Layer: 3
+  m_Name: Platform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -574,8 +577,8 @@ GameObject:
   - component: {fileID: 1907337508}
   - component: {fileID: 1907337507}
   - component: {fileID: 1907337506}
-  m_Layer: 0
-  m_Name: Platform (2)
+  m_Layer: 3
+  m_Name: Platform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -15,6 +15,11 @@ public class NewBehaviourScript : MonoBehaviour
     private int facingDirection = 1;
     private bool facingRight = true;
     
+    [Header("Collision info")]
+    [SerializeField] private float groundCheckDistance = 1.4f;
+    [SerializeField] private LayerMask whatIsGround;
+    private bool isGrounded;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -26,14 +31,17 @@ public class NewBehaviourScript : MonoBehaviour
     void Update()
     {
         Movement();
-        
         CheckInput();
-        
+        collisionChecks();
         FlipController();
-        
         AnimatorControllers();
     }
-    
+
+    // 
+    private void collisionChecks()
+    {
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
+    }
     
     private void CheckInput()
     {
@@ -52,7 +60,8 @@ public class NewBehaviourScript : MonoBehaviour
     
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        if(isGrounded)
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
     
     private void AnimatorControllers()
@@ -75,5 +84,9 @@ public class NewBehaviourScript : MonoBehaviour
     {
         if(rb.velocity.x > 0 && !facingRight || rb.velocity.x < 0 && facingRight)
             Flip();
+    }
+    
+    private void OnDrawGizmos() {
+        Gizmos.DrawLine(transform.position, new Vector3( transform.position.x, transform.position.y - groundCheckDistance ));
     }
 }
