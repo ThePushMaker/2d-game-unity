@@ -9,11 +9,17 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     
+    [Header("Dash Info")]
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashDuration;
+    [SerializeField] private float dashTime;
+     
     private float xInput;
     
     // default facing direction is right
     private int facingDirection = 1;
     private bool facingRight = true;
+    
     
     [Header("Collision info")]
     [SerializeField] private float groundCheckDistance = 1.4f;
@@ -35,6 +41,13 @@ public class NewBehaviourScript : MonoBehaviour
         Movement();
         CheckInput();
         collisionChecks();
+        
+        dashTime -= Time.deltaTime;
+        
+        if(Input.GetKeyDown(KeyCode.LeftShift)){
+            dashTime = dashDuration;
+        }
+        
         FlipController();
         AnimatorControllers();
     }
@@ -57,7 +70,14 @@ public class NewBehaviourScript : MonoBehaviour
     
     private void Movement()
     {
-        rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+        if(dashTime > 0)
+        {
+            rb.velocity = new Vector2(xInput * dashSpeed, 0);
+        } 
+        else
+        {
+            rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+        }
     }
     
     private void Jump()
@@ -74,6 +94,7 @@ public class NewBehaviourScript : MonoBehaviour
         
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isGrounded", isGrounded);
+        anim.SetBool("isDashing", dashTime > 0);
     }
     
     private void Flip()
