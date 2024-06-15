@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
-    private Rigidbody2D rb;
-    private Animator anim;
+    [Header("Move Info")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     
@@ -22,35 +21,22 @@ public class Player : MonoBehaviour
     private float comboTimeWindow;
     private bool isAttacking;
     private int comboCounter;
-    
      
     private float xInput;
     
-    // default facing direction is right
-    private int facingDirection = 1;
-    private bool facingRight = true;
-    
-    
-    [Header("Collision info")]
-    [SerializeField] private float groundCheckDistance = 1.4f;
-    [SerializeField] private LayerMask whatIsGround;
-    private bool isGrounded;
     private bool isMoving;
     
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
+    protected override void Start() {
+        base.Start();
     }
-
+    
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+        
         Movement();
         CheckInput();
-        CollisionChecks();
         
         dashTime -= Time.deltaTime;
         dashCooldownTimer -= Time.deltaTime;
@@ -70,11 +56,6 @@ public class Player : MonoBehaviour
             comboCounter = 0;
         }
         
-    }
-     
-    private void CollisionChecks()
-    {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
     }
     
     private void CheckInput()
@@ -151,20 +132,12 @@ public class Player : MonoBehaviour
         anim.SetInteger("comboCounter", comboCounter);
     }
     
-    private void Flip()
-    {
-        facingDirection = facingDirection * -1;
-        facingRight = !facingRight;
-        transform.Rotate(0, 180, 0);
-    }
+    
     
     private void FlipController()
     {
         if(rb.velocity.x > 0 && !facingRight || rb.velocity.x < 0 && facingRight)
             Flip();
     }
-    
-    private void OnDrawGizmos() {
-        Gizmos.DrawLine(transform.position, new Vector3( transform.position.x, transform.position.y - groundCheckDistance ));
-    }
+
 }
