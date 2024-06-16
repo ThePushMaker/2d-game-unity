@@ -105,7 +105,7 @@ public class Player : Entity
         }
         else if(dashTime > 0)
         {
-            rb.velocity = new Vector2(facingDirection * dashSpeed, 0);
+            rb.velocity = new Vector2(facingDir * dashSpeed, 0);
         } 
         else
         {
